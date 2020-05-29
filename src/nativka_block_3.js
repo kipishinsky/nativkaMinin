@@ -280,5 +280,31 @@ function nandleLinkClick (event) { // т.к. я пишу функцию чере
 // делегирование событий
 
 
+/*
+
+<p> asdsadadslkasdj asdj alksdh akjd ahjsdh sakjdha hdas </p>
+<p> asdsadadslkasdj asdj alksdh akjhdas </p>
+<p> asdsadadslkasdj asdj alksdh akjd ahjsdh sakjd </p>
+<p> asdsadadslkasdj asdj alksdh akjd ahjsdh sakjadsdsasdadsadd </p>
+
+ */
+// мы хотим получить: чтобы при клике на любой из параграфов он выделялся цветом
+
+let ps = document.querySelectorAll ('p') // берем все параграфы
+
+for (let i=0; i<ps.length; i++) {
+    ps[i].addEventListener('click', function(event) { // при каждом Iтом элементе крась его в синий
+        event.target.style.color = 'blue'
+    })
+}
+
+// а что если параграфов 100000
+// если мы пользуемся циклом фор, то кликнуть придется 100000 раз, что просто убьет весь ресурс приложения
+// чтобы этого избежать, нужно применить стратегию дилегирования
+
+
+
+
+
 
 
