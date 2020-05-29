@@ -302,9 +302,68 @@ for (let i=0; i<ps.length; i++) {
 // если мы пользуемся циклом фор, то кликнуть придется 100000 раз, что просто убьет весь ресурс приложения
 // чтобы этого избежать, нужно применить стратегию дилегирования
 
+/*
+<div id="wrapper">
+    <p> asdsadadslkasdj asdj alksdh akjd ahjsdh sakjdha hdas </p>
+    <p> asdsadadslkasdj asdj alksdh akjhdas </p>
+    <p> asdsadadslkasdj asdj alksdh akjd ahjsdh sakjd </p>
+    <p> asdsadadslkasdj asdj alksdh akjd ahjsdh sakjadsdsasdadsadd </p>
 
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
 
+</div>
+ */
 
+let wrapper = document.getElementById('wrapper') // из старых методов старайся использовать только get element by id - кстати является самым быстрым методом. в остальных случаях лучше использовать query.selector ы
+// так же можно не создавать отдельную переменную под этот элемент, а можно сразу же зацепиться за айдишник и нам выведет NODу
+document.getElementById('wrapper').addEventListener('click', (event) => {
+    console.log(event.target) // выдеди мне куда именно произошел клик
+})
 
+// теперь если мы кликаем в пустое поле то дива нашего нет, однако если мы кликаем на параграф то мы получаем параграф, если мы кликаем на общий контейнер то получаем весь div
+// если мы кликнем по спику, то будем получать список
 
+// теперь мы должны проверить является ли event.target параграфом (p) чтобы поменять его цвет
+
+document.getElementById('wrapper').addEventListener('click', (event) => {
+    console.log(event.target.tagName) // выдеди мне название тега на который я кликаю
+    let tagName = event.target.tagName.toLowerCase()
+    if (tagName === 'p') { // если это является p то меняй на синий
+        event.target.style.color = 'blue'
+    }
+})
+
+// теперь мы хотим менять цвет только у тех тегов у которых есть class = "color"
+
+/*
+<div id="wrapper">
+    <p> asdsadadslkasdj asdj alksdh akjd ahjsdh sakjdha hdas </p>
+    <p class="color"> asdsadadslkasdj asdj alksdh akjhdas </p>
+    <p> asdsadadslkasdj asdj alksdh akjd ahjsdh sakjd </p>
+    <p class="color"> asdsadadslkasdj asdj alksdh akjd ahjsdh sakjadsdsasdadsadd </p>
+
+    <ul class="color">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+
+</div>
+ */
+
+document.getElementById('wrapper').addEventListener('click', (event) => {
+    console.log(event.target.tagName) // выдеди мне название тега на который я кликаю
+    let tagName = event.target.tagName.toLowerCase()
+    if (tagName === 'p') { // если это является p то меняй на синий
+        event.target.style.color = 'blue'
+    }
+
+    if (event.target.classList.contains('color')) { // все теги с классом color крась в красный
+        event.target.style.color = 'red'
+    }
+})
 
