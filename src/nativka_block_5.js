@@ -1,7 +1,20 @@
-// кнопка старт
-let $start = document.querySelector('#start') // то что начинается через $ является Node(тоесть мы забираем ее с помощью функции querySelector, в нее мы ложим id через # - start. start id берем из html файла, который прикручен к кнопке (button)
 
-let $game = document.querySelector('#game') // то что начинается через $ является Node(тоесть мы забираем ее с помощью функции querySelector, в нее мы ложим id через # - game. game id берем из html файла, который прикручен к диву (div)
+/*  кнопка старт
+то что начинается через $ является Node
+(тоесть мы забираем ее с помощью функции querySelector,
+в нее мы ложим id через # - start. start id берем из html файла,
+который прикручен к кнопке (button)
+ */
+let $start = document.querySelector('#start')
+/* Div элемент, который подменяется при нажатии кнопки и где происходит игра
+то что начинается через $ является Node
+(тоесть мы забираем ее с помощью функции querySelector,
+в нее мы ложим id через # - game. game id берем из html файла,
+который прикручен к диву (div)
+ */
+let $game = document.querySelector('#game')
+
+
 
 /*
 вешаем прослушку на клик (  (addEventListener) 'click'.
@@ -16,10 +29,13 @@ $start.addEventListener('click', startGame)
 */
 $game.addEventListener('click',handBoxClick)
 
+
+
 /*
 тут будем хранить значение, равное тому, сколько раз мы кликнули на квадрат
  */
 let score = 0;
+
 
 /*
 функция которая запускается на клике при прослушке $start.addEventListener('click', startGame)
@@ -42,12 +58,17 @@ function startGame() { /*
     */
 }
 
-// функция, которая генерирует квадрат с определенными параметрами
+
+/*
+ функция, которая генерирует квадрат с определенными параметрами
+*/
 function renderBox() {
 
-    $game.innerHtml = '' /*
+    $game.innerHTML = '' /*
 
     https://innerhtml.ru/
+
+    innerHTML именно так, а не innerHtml
 
     чтобы не дублировать нажатия по квадрату в консоли,
     после каждого нажатия на квадрат, каждое последующее
@@ -55,11 +76,35 @@ function renderBox() {
     удаления содержимое контейнера game
     */
 
+    let boxSize = getRandom (20,100) /*
+    указали в этой переменной диапазон значений для
+    генерации размеров квадратов и положили генерируемое значение
+    в  box.style.height = box.style.width = boxSize + 'px'
+    */
+    let gameSize = $game.getBoundingClientRect () /*
+
+    вычисляем размеры игрового поля
+
+    Метод Element.getBoundingClientRect() возвращает
+    размер элемента и его позицию относительно viewport
+    (часть страницы, показанная на экране, и которую мы видим).
+
+    */
+    let maxTop = gameSize.height - boxSize /*
+    вычисляем динамическое значение для top,
+    чтобы потом указать это в топ
+    */
+    let maxLeft = gameSize.width - boxSize /*
+     вычисляем динамическое значение для left,
+    чтобы потом указать это в left
+    */
+
+
     let box = document.createElement('div') // создаем новый тег div в нашей функции, который как раз будет появляться в виде квадрата
 
     //ниже указаны стили для квадрата (box)
 
-    box.style.height = box.style.width = '50px' // высота = ширине = 50рх
+    box.style.height = box.style.width = boxSize + 'px' // высота = ширине = генерится из случайного числа, которое лежит в boxSize
     box.style.position = 'absolute' /*
     не выбегает из границ основного квадрата.
     (положение квадрата box будет вычислять относительно квадрата (div елемента) let $game )
@@ -68,8 +113,12 @@ function renderBox() {
     box.style.backgroundColor = '#000' // квадрат будет черного цвета
 
     // положение блока относительно родительского блока
-    box.style.top = '50px' // сверху отступить 50px
-    box.style.left = '70px' // слева отступить 70px
+    box.style.top = getRandom (3, maxTop) + 'px' /*
+    динамическое значение для top
+    */
+    box.style.left = getRandom (3, maxLeft) + 'px' /*
+    динамическое значение для left
+    */
 
     /* добавляем динамики курсору,
     чтобы при наведении стрелка сменялась на руку (наведение),
@@ -89,6 +138,7 @@ function renderBox() {
     $game.insertAdjacentElement('afterbegin', box)
 
 }
+
 
 /*
 вызываем функцию, которая вызывается при клике на генерируемый квадрат
@@ -117,6 +167,17 @@ event - отлавливает значение квадрата (data-box = 'tr
        запустить функцию, чтобы занова сгенерировать новый квадрат
        */
     }
+}
+
+
+/*
+функция для динамического указания размеров квадратов и их положений
+
+просто возвращает рандомное число, формула хз откуда
+
+*/
+function getRandom (min, max) {
+    return Math.floor(Math.random() * (max-min) + min)
 }
 
 
