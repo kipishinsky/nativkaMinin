@@ -43,6 +43,13 @@ let $resultHeader = document.querySelector('#result-header')
 который прикручен к h1 span (span)
  */
 let $result = document.querySelector('#result')
+/* input элемент, находящийся в div
+то что начинается через $ является Node,
+(тоесть мы забираем ее с помощью функции querySelector,
+в нее мы ложим id через # - game-time. game-time id берем из html файла,
+который прикручен к div input (input)
+ */
+let $gameTime = document.querySelector('#game-time')
 
 
 /*
@@ -57,7 +64,11 @@ $start.addEventListener('click', startGame)
 то будем запускать функцию handBoxClick ( кликнул рукой на квадрат )
 */
 $game.addEventListener('click',handBoxClick)
-
+/*
+вешает прослушку на инпут. прослушка срабатывает тогда, когда
+в инпуте меняется значение в value. и после срабатывания вызываем функцию setGameTime
+*/
+$gameTime.addEventListener('input',setGameTime)
 
 
 /*
@@ -72,6 +83,16 @@ let isGameStarted = false; /*
    isGameStarted = true
  */
 
+/* функция которая показывает */
+function show ($el) {
+    $el.classList.remove('hide')
+}
+
+/* функция которая прячет */
+function hide ($el) {
+    $el.classList.add('hide')
+}
+
 
 /*
 функция которая запускается на клике при прослушке $start.addEventListener('click', startGame)
@@ -82,6 +103,10 @@ function startGame() { /*
 */
     score = 0 /*
         зануляем счет для начала новый игры
+     */
+    $gameTime.setAttribute ('disabled', 'true') /*
+        заблокируем инпут, чтобы во время
+        игры не менялось выставленное время игры
      */
     $timeHeader.classList.remove('hide') /*
         при старте игры показываем  time list со временем игры
@@ -151,9 +176,14 @@ function startGame() { /*
 
 }
 
+/*
+ функция настройки времени
+ */
 function setGameTime () {
-    let time = 5 /*
-        по умолчание в выбранном времени будет лежать 5
+    let time = +$gameTime.value; /*
+        теперь значние инпута будет хранится в переменной gameTime
+        приводит это значение к числу либо через parseInt,
+        либо через +
     */
     $time.textContent = time.toFixed(1) /*
         показывать 1 символ после точки целого числа
@@ -314,7 +344,10 @@ function endGame () {
     $resultHeader.classList.remove('hide') /*
      и показываем вместо timeHeader результат resultHeader
      */
-
+    $gameTime.removeAttribute ('disabled') /*
+        во время игры инпут заблокирован, но как только она
+        закончена, мы разблокироваем инпут
+     */
 }
 
 /*
