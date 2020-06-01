@@ -22,6 +22,28 @@ let $game = document.querySelector('#game')
 let $time = document.querySelector('#time')
 
 
+/* h1 span элемент,
+то что начинается через $ является Node,
+(тоесть мы забираем ее с помощью функции querySelector,
+в нее мы ложим id через # - time-header.  time-header id берем из html файла,
+который прикручен к h1 span (span)
+ */
+let $timeHeader = document.querySelector('#time-header')
+/* h1 span элемент,
+то что начинается через $ является Node,
+(тоесть мы забираем ее с помощью функции querySelector,
+в нее мы ложим id через # - result-header.  result-header id берем из html файла,
+который прикручен к h1 span (span)
+ */
+let $resultHeader = document.querySelector('#result-header')
+/* span элемент,
+то что начинается через $ является Node,
+(тоесть мы забираем ее с помощью функции querySelector,
+в нее мы ложим id через # - result. result id берем из html файла,
+который прикручен к h1 span (span)
+ */
+let $result = document.querySelector('#result')
+
 
 /*
 вешаем прослушку на клик (  (addEventListener) 'click'.
@@ -58,6 +80,16 @@ function startGame() { /*
 при запуске функции свойства ниже подменяются при
 помощи js и css свойства видны по новому
 */
+    score = 0 /*
+        зануляем счет для начала новый игры
+     */
+    $timeHeader.classList.remove('hide') /*
+        при старте игры показываем  time list со временем игры
+    */
+    $resultHeader.classList.add('hide') /*
+     и скрываем  результаты resultHeader
+     */
+
     isGameStarted = true /*
       при запуске будет активным поле
      */
@@ -109,9 +141,22 @@ function startGame() { /*
     повторить с интервалом в 0.1 сек
     */
 
+    setGameTime() /*
+        вызов функции, которая по умолчанию ставит 5 в таймер
+     */
     renderBox() /*
     при старте игры будем вызывать дополнительно
     функцию(без параметров)  в нашу функцию
+    */
+
+}
+
+function setGameTime () {
+    let time = 5 /*
+        по умолчание в выбранном времени будет лежать 5
+    */
+    $time.textContent = time.toFixed(1) /*
+        показывать 1 символ после точки целого числа
     */
 }
 
@@ -251,7 +296,32 @@ function endGame () {
     isGameStarted = false /*
         деактивирует поле
     */
+    setGameScore() /*
+        вызываем функцию, которая показывает счет
+    */
+    $start.classList.remove('hide') /*
+        показываем снова кнопку старт, после окончания игры
+    */
+    $game.innerHTML = '' /*
+        очищаем квадраты
+     */
+    $game.style.backgroundColor = '#1849c6' /*
+        меняем фон когда игра завершится, итоговый фон аля
+    */
+    $timeHeader.classList.add('hide') /*
+        по завершению игры скрываем time list со временем
+    */
+    $resultHeader.classList.remove('hide') /*
+     и показываем вместо timeHeader результат resultHeader
+     */
+
 }
 
+/*
+функция, которая устанавливает в спан счет завершившейся игры
+ */
+function setGameScore () {
+    $result.textContent = score.toString() /* */
+}
 
 
