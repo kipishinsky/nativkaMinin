@@ -1,3 +1,4 @@
+/*
 let car = {
     name: 'ford',
     year: 2015,
@@ -6,8 +7,9 @@ let car = {
         age: 29
     }
 }
-
-console.log(car) /*
+*/
+/*
+console.log(car)
 __proto__: // показывает все методы, которые мы можем вызвать
     constructor: ƒ Object() // самый верхнеуровневый класс, от него все идет
     hasOwnProperty: ƒ hasOwnProperty()
@@ -23,13 +25,12 @@ __proto__: // показывает все методы, которые мы мо
     get __proto__: ƒ __proto__()
     set __proto__: ƒ __proto__()
 */
-// car.__proto__  => Object.prototype наследование объекта
 /*
+// car.__proto__  => Object.prototype наследование объекта
     проверка
  > car.__proto__ === Object.prototype
  <- true
 */
-
 /* весь джаваскрипт построен на объектах
     рассмотрим пример
     let arr = [1,2,3]
@@ -96,5 +97,121 @@ __proto__: // показывает все методы, которые мы мо
  это работает так:
   [] => наследуется от класса Array => а поскольку массивы так же являются объектами, то и наследование происходит от Object
  */
+// обычно мы записываем объекты традиционно
+/*
+let car = {
+    name: 'ford',
+    year: 2015,
+}
+*/
+// но есть и другой вариант
+// можно создать функцию-класс. Функции, которые по факту являются классами, мы называем с большой буквы
+/*
+function Car (name, year) {
+    this.name = name
+    this.year = year
+}
+var ford = new Car ('ford', 2015)
+console.log(ford)
+   Car {}
+    > __proto__: Object
+*/
+/*
+function Car (name, year) {
+    this.name = name
+    this.year = year
+}
+var ford = new Car ('ford', 2015)
+console.log (ford)
+    Car {name: "ford", year: 2015}
+        name: "ford"
+        year: 2015
+        > __proto__:
+            > constructor: ƒ Car(name, year)
+            > __proto__: Object
+*/
+/*
+function Car (name, year) {
+    this.name = name
+    this.year = year
+}
+var ford = new Car ('ford', 2015)
+var bmw = new Car ('BMW', 20112)
+console.log (ford)
+console.log (bmw)
+    Car {name: "ford", year: 2015}
+        name: "ford"
+        year: 2015
+        > __proto__:
+            > constructor: ƒ Car(name, year)
+            > __proto__: Object
+    Car {name: "BMW", year: 20112}
+        name: "BMW"
+        year: 20112
+        __proto__:
+            constructor: ƒ Car(name, year)
+            __proto__: Object
+*/
+// данные методы написания объектов через функции (методы ES5), схожи с написанием объектов (стандарта ES6), просто пишется через другую конструкцию
 
+// теперь напишем свой прототип для объектов
+// плюс прототипов в том, чтоне нужно писать под каждый объект свою фукцию или метод
+// пишешь прототип и он работает под все объекты и функции
 
+function Car (name, year) {
+    this.name = name
+    this.year = year
+}
+
+// пишем прототип функцию которая будет высчитывать сколько машине лет
+Car.prototype.getAge = function () { // getAge (называй как хочешь, это лишь название метода для которого мы пишем функцию
+    return new Date().getFullYear() - this.year // new Date() - создаем новый объект Date, .getFullYear() - получим текущий год и потом нужно вычесть год машины обращаемся через this,year - где this. является обращение к var ford, var bmw по второму параметру функции Car.
+}
+
+var ford = new Car ('ford', 2015)
+var bmw = new Car ('BMW', 2012)
+
+console.log (ford) /*
+    Car {name: "ford", year: 2015}
+        name: "ford"
+        year: 2015
+        __proto__:
+            getAge: ƒ () // наша созданная функция через прототайп
+            constructor: ƒ Car(name, year)
+            __proto__: Object
+*/
+console.log (bmw) /*
+    Car {name: "BMW", year: 2012}
+        name: "BMW"
+        year: 2012
+        __proto__:
+            getAge: ƒ () наша созданная функция через прототайп
+            constructor: ƒ Car(name, year)
+            __proto__: Object
+*/
+
+// напишем прототип свойство для всех машин, пусть все машины будут черного цвета
+
+Car.prototype.color = 'black'
+
+// ford.color
+// <- 'black'
+// bmw.color
+// <- 'black'
+
+// если мы захотим переопределить значение цвета, то
+ford.color = 'red'
+/*  Car {name: "ford", year: 2015}
+        color: "red" // появился заданный цвет
+         name: "ford"
+         year: 2015
+         > __proto__:
+            color: "black" // но в прототипе всеравно сидит значение black, которое мы задали для всех объектов по умолчанию
+            getAge: ƒ () наша созданная функция через прототайп
+            constructor: ƒ Car(name, year)
+            __proto__: Object
+ */
+
+// теперь если вызвать
+ford.color
+// то в консоле будет показан цвет red, потому что color цепляется сверху вниз, самое высокоуровнее значение
