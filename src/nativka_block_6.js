@@ -553,6 +553,7 @@ person.displayInfo() /!*
 *!/
 */
 
+/*
 
 // теперь установим задержку
 var person = {
@@ -569,7 +570,7 @@ var person = {
 }
 
 // вызовим наш метод у персон, дисплейинфо
-person.displayInfo(2000) /*
+person.displayInfo(2000) /!*
     выводится через задержку в 2 секунды, 100ms = 0.1сек
         name:
         job:  undefined
@@ -608,4 +609,61 @@ person.displayInfo(2000) /*
         }.bind(this), ms) // ВАЖНО: после фигурной скобки ставится . потом вызывается метод bind() и потому ставится , и указывается то количество MS которое мы передали в вызов метода person.displayInfo(500)
 
 
-    */
+    *!/*/
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//           Привязка контекста                     Привязка контекста                     Привязка контекста                     Привязка контекста                     Привязка контекста                     Привязка контекста                     Привязка контекста                     Привязка контекста                     Привязка контекста                     Привязка контекста
+
+/*
+ создаем уникальную функцию которая будет работать с ключевым словом this
+ привязывая контекст разными способами указанные ниже можно применять данную функцию многократно
+*/
+function printObject (objName) { // принимает название объекта а не сам объект
+    console.log('printing object: ', objName)
+    for (var key in this) {
+        if (this.hasOwnProperty(key)) {
+            console.log('[' + key + ']', this[key])
+        }
+    }
+}
+
+
+var person = {
+    firstName: 'Max',
+    job: 'backEnd',
+    age: 29,
+    friends: ['elena', 'igor']
+}
+
+var car = {
+    marka: 'ford',
+    model: 'Focus',
+    year: 2017
+}
+
+var printPerson = printObject.bind(person)
+printPerson('Person') /*
+    printing object:  Person
+    [firstName] Max
+    [job] backEnd
+    [age] 29
+    [friends] (2) ["elena", "igor"]
+*/
+
+printObject.call(car, 'CaR') /*
+    printing object:  CaR
+    [marka] ford
+    [model] Focus
+    [year] 2017
+*/
+
+printObject.apply(person, ['Person']) /*
+    printing object:  Person
+    [firstName] Max
+    [job] backEnd
+    [age] 29
+    [friends] (2) ["elena", "igor"]
+*/
+
