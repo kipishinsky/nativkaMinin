@@ -417,20 +417,20 @@ for (var key in audi) {
 
 /* благодаря данным методам можно создавать много гибкого и мощного функционала */
 
-var person = {
+/*var person = {
     name: 'Max',
     age: 28,
     job: 'Frontent'
-}
+}*/
 
 
 // при помощи цикла фор, получаем доступ до ключей
 
-for (let key in person) { /*
+/*for (let key in person) { /!*
 Цикл for..in перебирает все методы и свойства объекта,
  даже если они находятся не в самом объекте а в прототипе
- */
-    if (person.hasOwnProperty(key)) /*
+ *!/
+    if (person.hasOwnProperty(key)) /!*
      При создании объектов, у них уже есть некоторые свойства
      (например, toString). Но на самом деле это свойства объекта Object,
       от которого наследуют объекты. С помощью hasOwnProperty
@@ -438,31 +438,97 @@ for (let key in person) { /*
 
       если у объекта person есть собственные свойства,
        то выведи их на экран, без прототипов
-     */
-    console.log(person[key]) /*
+     *!/
+    console.log(person[key]) /!*
         Max
         28
         Frontent
-     */
-}
+     *!/
+}*/
 
 // более современный способ
-let keys = Object.keys(person) /*
+/*let keys = Object.keys(person)*/ /*
 обращаемся к глобальному объекту Object и вызываем метод у него keys
 (ключи) и передаем в этот метод объект из которого нужно
 достать ключи (Object.keys.person)
 */
-console.log(keys) /*
+/*console.log(keys) *//*
 (3) ["name", "age", "job"]
 получаем массив из строк, где каждая строка представляет
 отдельный ключ из нашего объекта
 */
 
 // еще более часто встречающийся метод получение ключей из объекта
-Object.keys(person).forEach( (key) => { // оператор object.keys идет только по собственным ключам, не затрагивая ключи у прототипов
-    console.log(person[key]) /*
+/*Object.keys(person).forEach( (key) => { // оператор object.keys идет только по собственным ключам, не затрагивая ключи у прототипов
+    console.log(person[key]) /!*
         Max
         28
         Frontent
-     */
-})
+     *!/
+})*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//            Как работают замыкания                   Как работают замыкания                   Как работают замыкания                   Как работают замыкания                   Как работают замыкания                   Как работают замыкания                   Как работают замыкания                   Как работают замыкания                   Как работают замыкания
+
+/*
+создадим функцию createCounter которая возвращает функцию.
+в этой функции есть переменная counter которой присвоен 0.
+Функция возвращает объекты в ретурне:
+increment (ключ) который возвращает функцию, которая повышает counter на 1.
+decrement (ключ) который возвращает функцию, которая уменьшает counter на 1.
+getCounter (ключ) который возвращает функцию, которая возвращает новое
+значение counter которое автоматические переприсваивается в
+переменной counter
+
+var counterA = createCounter()
+var counterB = createCounter()
+создаем переменные counterA и counterB, при вызове которых,
+запускается функция  createCounter
+
+//вызаваем
+counterA.increment() // 1
+counterA.increment() // 2
+counterA.increment() // 3
+    counterA.getCounter() // 3
+
+
+//вызаваем
+counterB.decrement() // -1
+counterB.decrement() // -2
+    counterB.getCounter() // -2
+
+
+*/
+var createCounter = function () {
+    var counter = 0
+    return {
+        increment: function () {
+            counter++
+        },
+        decrement: function () {
+            counter--
+        },
+        getCounter: function () {
+            return counter
+        }
+    }
+}
+
+var counterA = createCounter()
+var counterB = createCounter()
+
+counterA.increment()
+counterA.increment()
+counterA.increment()
+
+counterB.decrement()
+counterB.decrement()
+
+
+
+
+
+
+
+
