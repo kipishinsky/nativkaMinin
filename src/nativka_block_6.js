@@ -597,13 +597,15 @@ person.displayInfo(2000) /*
             }
         }
 
-    3 способ - привязка контекста
-        методом bind
+    3 способ - привязка контекста   методом bind
+
             setTimeout(function() { // setTimeout - метод который устанавливает задержку
             console.log('name: ', this.name ) // name:  Max
             console.log('job: ', this.job ) //  job:  Frontend
             console.log('age: ', this.age ) //  age:  28
-        }.bind(this), ms)   }.bind(this), ms)        // ВАЖНО: после фигурной скобки ставится . потом вызывается метод bind() и потому ставится , и указывается то количество MS которое мы передали в вызов метода person.displayInfo(500)
+        }.bind(this), ms)
+        //
+        }.bind(this), ms) // ВАЖНО: после фигурной скобки ставится . потом вызывается метод bind() и потому ставится , и указывается то количество MS которое мы передали в вызов метода person.displayInfo(500)
 
 
     */
