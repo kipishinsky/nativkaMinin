@@ -472,7 +472,6 @@ for (var key in audi) {
 //            Как работают замыкания                   Как работают замыкания                   Как работают замыкания                   Как работают замыкания                   Как работают замыкания                   Как работают замыкания                   Как работают замыкания                   Как работают замыкания                   Как работают замыкания
 
 /*
-/!*
 создадим функцию createCounter которая возвращает функцию.
 в этой функции есть переменная counter которой присвоен 0.
 Функция возвращает объекты в ретурне:
@@ -500,7 +499,7 @@ counterB.decrement() // -2
     counterB.getCounter() // -2
 
 
-*!/
+*/
 var createCounter = function () {
     var counter = 0
     return {
@@ -525,85 +524,11 @@ counterA.increment()
 
 counterB.decrement()
 counterB.decrement()
-*/
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//           Что такое контекст                     Что такое контекст                     Что такое контекст                     Что такое контекст                     Что такое контекст                     Что такое контекст                     Что такое контекст                     Что такое контекст                     Что такое контекст           Что такое контекст
 
 
-/*
-// создаем переменную с объектом.
-var person = {
-    age: 28,
-    name: 'Max',
-    job: 'Frontend',
-    displayInfo: function () { // создаем метод displayInfo, который возвращает функцию
-        console.log('name: ', this.name ) // name:  Max
-        console.log('job: ', this.job ) //  job:  Frontend
-        console.log('age: ', this.age ) //  age:  28
-    }
-}
-
-// вызовим наш метод у персон, дисплейинфо
-person.displayInfo() /!*
-    name:  Max
-    job:  Frontend
-    age:  28
-*!/
-*/
 
 
-// теперь установим задержку
-var person = {
-    age: 28,
-    name: 'Max',
-    job: 'Frontend',
-    displayInfo: function (ms) { // создаем метод displayInfo, который возвращает функцию
-        setTimeout(function() { // setTimeout - метод который устанавливает задержку
-            console.log('name: ', this.name ) // name:  Max
-            console.log('job: ', this.job ) //  job:  Frontend
-            console.log('age: ', this.age ) //  age:  28
-        }, ms)
-    }
-}
-
-// вызовим наш метод у персон, дисплейинфо
-person.displayInfo(2000) /*
-    выводится через задержку в 2 секунды, 100ms = 0.1сек
-        name:
-        job:  undefined
-        age:  undefined
-
-        без метода setTimeout все работало, а при подключении его - не не работает
-    причина всему область видимости у this. сейчас область
-    видимости ограничивается в методе setTimeout и соответственно this обращается к глабальному объекту window
-    1 способ - this там не определяется и чтобы корректно работало, нужно вместо this использовать название родителя person
-    2 способ - замкнуть в функции this на новую переменную, которая приходит как this
-
-        var person = {
-            age: 28,
-            name: 'Max',
-            job: 'Frontend',
-            displayInfo: function (ms) { // создаем метод displayInfo, который возвращает функцию
-                //замыкае this на новую переменную self.
-                let self = this
-                setTimeout(function() { // setTimeout - метод который устанавливает задержку
-                    // применяем self.name, .job, .age
-                    console.log('name: ', self.name ) // name:  Max
-                    console.log('job: ', self.job ) //  job:  Frontend
-                    console.log('age: ', self.age ) //  age:  28
-                }, ms)
-            }
-        }
-
-    3 способ - привязка контекста
-        методом bind
-            setTimeout(function() { // setTimeout - метод который устанавливает задержку
-            console.log('name: ', this.name ) // name:  Max
-            console.log('job: ', this.job ) //  job:  Frontend
-            console.log('age: ', this.age ) //  age:  28
-        }.bind(this), ms)   }.bind(this), ms)        // ВАЖНО: после фигурной скобки ставится . потом вызывается метод bind() и потому ставится , и указывается то количество MS которое мы передали в вызов метода person.displayInfo(500)
 
 
-    */
+
+
