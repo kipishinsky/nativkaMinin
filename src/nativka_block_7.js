@@ -276,32 +276,42 @@ console.log(postDate) // {title: "Скоро новый год", text: "Скор
 // Объекты    Объекты    Объекты    Объекты    Объекты    Объекты    Объекты    Объекты    Объекты    Объекты    Объекты    Объекты
 
 // чтобы вернуть объект через стрелочную функцию.
+/*
 const createCar1 = (name, model) => {
     return {name, model}
 }
 const bmw1 = createCar1 ('bmw', '3')
 console.log(bmw1) // {name: "bmw", model: "3"}
+*/
 
 // если вернуть в одну строчку
     // не работает
+/*
 const createCar2 = (name, model) => {name, model}
 const bmw2 = createCar2 ('bmw', '3')
 console.log(bmw2) // так не работает, функция думает что это ее тело
+*/
+
     // работает
+/*
 const createCar3 = (name, model) => ({name, model}) // чтобы функция не принимала объект как тело, нужно обернуть в (скобки)
 const bmw3 = createCar3 ('bmw', '3')
 console.log(bmw3) // {name: "bmw", model: "3"}
+*/
 
 // динамические ключи (поля) в объектах
+/*
 const audi = {
     name: 'audi',
     ['model ' + Math.random()]: 'X6 sport'
 }
 console.log(audi) // {name: "audi", model 0.06283867098789409: "X6 sport"}
+*/
 
 /* мы создали переменную, которая хранит в себе 'year', после этого
         мы указали в объекте audi1 ссылку на переменную
 */
+/*
 const yearField = 'year'
 const audi1 = {
     name: 'audi',
@@ -309,9 +319,11 @@ const audi1 = {
     [yearField]: 2018
 }
 console.log(audi1) // {name: "audi", model: "X6 sport", year: 2018}
+*/
 
 
 // деструктуризация
+/*
 const yearField1 = 'year'
 const ford = {
     name: 'ford',
@@ -323,6 +335,7 @@ const ford = {
 }
 console.log(ford) // {name: "ford", model: "Focus", year: 2018, logfield: ƒ}
 ford.logField() // ford Focus 2018
+*/
 
 /*  Чтобы провести деструктуризации и избавится от дублирующего слова this
       logField () {
@@ -339,3 +352,65 @@ ford.logField() // ford Focus 2018
 */
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Операторы Rest и Spread     Операторы Rest и Spread     Операторы Rest и Spread     Операторы Rest и Spread     Операторы Rest и Spread
+
+const form = document.querySelector('form')
+
+form.addEventListener('submit', event => {
+    event.preventDefault()
+    const title = form.title.value
+    const text = form.text.value
+    const description = form.description.value
+
+    console.log(title,text,description) // что ввели в инпуты то и выдало
+
+    saveForm({title, text, description})
+})
+
+function saveForm (data) {
+    const formData = {
+        date: new Date().toLocaleDateString(),
+        title: data.title,
+        text: data.text,
+        description: data.description
+    }
+    console.log('Form DaTA: ', formData)
+}
+
+// spread оператор создает новые объекты, либо новые ссылки (разворачивает объекты)
+// пишется так - ...
+/*
+function saveForm (data) { // saveForm({title, text, description}) - ({title, text, description})
+    const formData = {
+        date: new Date().toLocaleDateString(),
+        ...data // ... спред оператор и к нему подставлем data, то что пришло в функцию (({title, text, description}) )
+    }
+    console.log('Form DaTA: ', formData)
+}
+*/
+
+
+// rest оператор применяется для сбора всех параметров
+
+/*
+
+form.addEventListener('submit', event => {
+    event.preventDefault()
+    const title = form.title.value
+    const text = form.text.value
+    const description = form.description.value
+
+    saveForm(title, text, description) // передаем 3 переменных
+})
+
+function saveForm (...args) {
+    // console.log ('Args', args) // переданные значения в массиве
+    const [title, text, description] = args
+    const formData = {
+        date: new Date().toLocaleDateString(),
+        title, text, description
+   }
+    console.log('Form DaTA: ', formData)
+}
+*/
