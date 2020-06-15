@@ -109,39 +109,50 @@ console.log(obj) // {a: 1, b: 2}
 
 
 // классическое объявление функции
+/*
 function getAge (year) {
     const current = new Date().getFullYear()
     return current - year
 }
 console.log(getAge(1993)) //27
+*/
 
 
 // Теперь стрелочная функция - она должна хранится в переменной. Такой синтаксис
+/*
 const calculateAge = (year) => {
     const current = new Date().getFullYear()
     return current - year
 }
 console.log(calculateAge(1992)) // 28
+*/
 
 
 // Различные вариации
 
 // при указании одного параметра функции
+/*
 const ageGet = year => { // если указывается один параметр, то можно не использовать скобки
     const current = new Date().getFullYear()
     return current - year
 }
 console.log(ageGet(1990)) // 30
+*/
 
 // если функция записана в одну строчку, то можно не использовать {} и слово return
+/*
 const getRange = year => new Date().getFullYear() - year
 console.log(getRange(1980)) // 40
+*/
 
 // так же можно прописывать так
+/*
 const logAge = year => console.log(new Date().getFullYear() - year)
 console.log(logAge(1945)) // 75
+*/
 
 //
+/*
 const person = {
     age:25,
     firstName: "Max",
@@ -152,6 +163,7 @@ const person = {
     }
 }
 person.logNameWithTimeout() // undefined и через секунду undefined
+*/
 /* undefined потому что this сейчас обращается к глобальному объекту window
         решить данную проблему можно через метод bind.
         но и даже если мы подставим bind(this)
@@ -169,6 +181,7 @@ person.logNameWithTimeout() // undefined и через секунду undefined
  Чтобы решить данную проблему, то можно написать так
 */
 
+/*
 const persona = {
     age:25,
     firstName: 'Max',
@@ -179,10 +192,78 @@ const persona = {
     }
 }
 persona.logNameWithTimeout() // undefined и через секунду Max
+*/
 /*
     Мы прописывает метод не через функцию, или стрелочную функцию, а прописываем
     синтаксис как метод, который будет нести в себе контекст от метода, а дальше уже будет
     передаваться стрелочная функция. Это возможно внутри объектов или классов
 
 */
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Параметры по умолчанию     Параметры по умолчанию     Параметры по умолчанию     Параметры по умолчанию     Параметры по умолчанию
+
+const createPost = (title, text, date) => {
+    return {
+        title: title,
+        text: text,
+        date: date
+    }
+}
+const post = createPost('Скоро новый год', 'Скоро будет 2021', '01.05.2020')
+console.log(post) // {title: "Скоро новый год", text: "Скоро будет 2021", date: "01.05.2020"}
+/*
+    Мы передаем в функцию 3 параметра: title, text, date.
+    но при этом, дата присваивается автоматически (под капотом)
+    поэтому мы можем ее не передавать, тем самым укоротив себе простыню
+*/
+
+
+// не передаем дату, а присваиваем автоматом
+const createPostDate = (title, text, date = new Date().toLocaleDateString()) => {
+    return {
+        title: title,
+        text: text,
+        date: date
+    }
+}
+const postDate = createPostDate('Скоро новый год', 'Скоро будет 2021')
+console.log(postDate) // {title: "Скоро новый год", text: "Скоро будет 2021", date: "15.06.2020"}
+
+/* мы не передаем параметр date в функцию, и она присваивает метод .toLocalDateString() по умолчанию
+    и у нас выводится {title: "Скоро новый год", text: "Скоро будет 2021", date: "15.06.2020"}
+    если передать дефолтные значения в параметры изначально и не передавать их потом
+    const createPostDate = (title, text = 'Default TEXT', date = new Date().toLocaleDateString()) => {
+        return {
+            title: title,
+            text: text,
+            date: date
+        }
+    }
+    const postDate = createPostDate('Скоро новый год')
+    console.log(postDate) // {title: "Скоро новый год", text: "Default TEXT", date: "15.06.2020"}
+
+   Дефолтные параметры работают только в том случае, если мы их не передаем,
+   если мы их передали, то они перезатераются новыми (переданными) значениями
+
+*/
+/* если мы передаем параметры в функцию, а в самой функции эти параметры
+равны возвращаем элементам
+    например:
+        return {
+            title: title,
+            text: text,
+            date: date
+        }
+
+    То можно записать так:
+    const createPostDate = (title, text, date = new Date().toLocaleDateString()) => {
+        return {title, text, date} // убрали дублирование кода
+    }
+    const postDate = createPostDate('Скоро новый год')
+    console.log(postDate) // {title: "Скоро новый год", text: "Default TEXT", date: "15.06.2020"}
+*/
+
 
