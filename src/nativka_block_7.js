@@ -355,8 +355,11 @@ ford.logField() // ford Focus 2018
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Операторы Rest и Spread     Операторы Rest и Spread     Операторы Rest и Spread     Операторы Rest и Spread     Операторы Rest и Spread
 
+/*
 const form = document.querySelector('form')
+*/
 
+/*
 form.addEventListener('submit', event => {
     event.preventDefault()
     const title = form.title.value
@@ -367,7 +370,9 @@ form.addEventListener('submit', event => {
 
     saveForm({title, text, description})
 })
+*/
 
+/*
 function saveForm (data) {
     const formData = {
         date: new Date().toLocaleDateString(),
@@ -377,6 +382,7 @@ function saveForm (data) {
     }
     console.log('Form DaTA: ', formData)
 }
+*/
 
 // spread оператор создает новые объекты, либо новые ссылки (разворачивает объекты)
 // пишется так - ...
@@ -414,3 +420,31 @@ function saveForm (...args) {
     console.log('Form DaTA: ', formData)
 }
 */
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6
+
+const createLink = ({path, name}) => '<a target="_blank" href="'+path+'">'+name+'</a>'
+const ul = document.querySelector('ul')
+const google = '<li>'+createLink({path: 'https://google.com', name: 'Google'})+'</li>'
+const yandex = '<li>'+createLink({path: 'https://ya.ru', name: 'Yandex'})+'</li>'
+ul.insertAdjacentHTML('afterbegin', google)
+ul.insertAdjacentHTML('afterbegin', yandex)
+
+// использование обратных ковычек и ${ссылка на JS объект}
+
+const createLink = ({path, name}) => `<a target="_blank" href="${path}">${name}</a>`
+const google = `<li>${createLink({path: 'https://google.com', name: 'Google'})}</li>`
+const yandex = `<li>${createLink({path: 'https://ya.ru', name: 'Yandex'})}</li>`
+
+const strToLog = `
+    hello
+    world
+        I am
+            New tab
+`
+console.log(strToLog) // hello
+                      // world
+                      //     I am
+                      //         New tab
