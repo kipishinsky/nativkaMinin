@@ -425,14 +425,17 @@ function saveForm (...args) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6   Строки ES6
 
+/*
 const createLink = ({path, name}) => '<a target="_blank" href="'+path+'">'+name+'</a>'
 const ul = document.querySelector('ul')
 const google = '<li>'+createLink({path: 'https://google.com', name: 'Google'})+'</li>'
 const yandex = '<li>'+createLink({path: 'https://ya.ru', name: 'Yandex'})+'</li>'
 ul.insertAdjacentHTML('afterbegin', google)
 ul.insertAdjacentHTML('afterbegin', yandex)
+*/
 
 // использование обратных ковычек и ${ссылка на JS объект}
+/*
 
 const createLink = ({path, name}) => `<a target="_blank" href="${path}">${name}</a>`
 const google = `<li>${createLink({path: 'https://google.com', name: 'Google'})}</li>`
@@ -447,4 +450,83 @@ const strToLog = `
 console.log(strToLog) // hello
                       // world
                       //     I am
-                      //         New tab
+                      //         New tab*/
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Классы и наследование   Классы и наследование   Классы и наследование   Классы и наследование   Классы и наследование   Классы и наследование
+
+// RootElement <= Box <= instances
+
+class RootElement {
+    constructor (tagName = 'div') {
+        this.$el = document.createElement(tagName)
+        this.$el.style.marginBottom = '20px'
+    }
+
+    hide () {
+        this.$el.style.opacity = '0'
+    }
+
+    append() {
+        document.querySelector('.wrapper').insertAdjacentElement('beforeend', this.$el)
+    }
+
+    show() {
+        this.$el.style.opacity = '1'
+    }
+}
+
+class Box extends RootElement {
+    constructor (color, size = 150, tagName) {
+        super(tagName) // позволяет вызывать родительский метод (в нашем случае конструктор)
+        this.color = color
+        this.size = size
+    }
+
+    create () {
+
+        this.$el.style.background = this.color
+        this.$el.style.width = this.$el.style.height = `${this.size}px`
+
+        this.append()
+        return this
+    }
+}
+
+class Circle extends RootElement {
+    constructor(color) {
+        super();
+        this.color = color
+    }
+
+    create() {
+        this.$el.style.borderRadius = '50%'
+        this.$el.style.width = this.$el.style.height = `120px`
+        this.$el.style.background = this.color
+
+        this.append()
+
+        return this
+    }
+}
+
+const redBox = new Box ('red', 100, 'div').create()
+const blueBox = new Box ('blue').create()
+const circle = new Circle ('green').create()
+
+circle.$el.addEventListener('mouseenter', () => { // при наведении мышкой на элемент , скрой его
+    circle.hide()
+})
+
+circle.$el.addEventListener('mouseleave', () => { // как мышка уйдет с области элемента, покажи его обратно
+    circle.show()
+})
+
+
+
+
+
+
+
