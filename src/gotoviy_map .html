@@ -1,0 +1,258 @@
+<script>
+/* 1. Преобразовать массив чисел
+ [1, 2, 3, 4, 5] в массив строк
+[‘1’, ‘2’, ‘3’, ‘4’, ‘5’]; */
+
+let arr = [1, 2, 3, 4, 5];
+//вариант с обычной функцией
+let newArr = arr.map(function(element) {
+  return '‘' + element + '’';
+});
+console.log(newArr);
+//вариант со стрелочной функцией
+let newArr2 = arr.map(element => '‘' + element + '’');
+console.log(newArr2);
+
+/* 2. Преобразовать массив строк 
+[‘age’, ‘name’, ‘gfgfgf’] в массив строк с верхним регистром
+ */
+
+let string = ['age', 'name', 'gfgfgf'];
+//вариант с обычной функцией
+let stringUpperCase = string.map(function(element) {
+	return element.toUpperCase();
+});
+console.log(stringUpperCase);
+//вариант со стрелочной функцией
+let stringUpperCase2 = string.map(element => element.toUpperCase());
+console.log(stringUpperCase2);
+
+/* 3. Преобразовать массив строк 
+[‘andrey’, ‘vasja’, ‘kirill’] в массив у которого каждый элемент будет с первой заглавной буквой*/
+
+let array = ['andrey', 'vasja', 'kirill'];
+//вариант с обычной функцией
+let firstLetter = array.map(function(element) {
+		return element[0].toUpperCase() + element.substring(1);
+});
+console.log(firstLetter);
+//вариант со стрелочной функцией
+let firstLetter2 = array.map(element => element[0].toUpperCase() + element.substring(1));
+console.log(firstLetter2);
+
+/* 4. Преобразовать массив строк 
+[‘Andrey’, ‘Vasja’, ‘Kirill’] 
+в массив объектов:
+[{ name: ‘Andrey’ }, { name: ‘Vasja’ },{ name: ‘Kirill’ } ]
+
+Решение:
+let arr = ['Andrey', 'Vasja', 'Kirill'];
+let newArr = [];
+for(let i = 0; i < arr.length; i++) {
+	let newEntity = {name: arr[i]}
+	newArr.push(newEntity);} */
+let names = ['Andrey', 'Vasja', 'Kirill'];
+//вариант с обычной функцией
+let arrayObjects = names.map(function(element){
+	return {name: element};
+});
+console.log(arrayObjects);
+//вариант со стрелочной функцией
+let arrayObjects2 = names.map(element => ({name: element}));
+console.log(arrayObjects2);
+
+/* 5. Есть массив имен 
+['Andrey', 'Vasja', 'Kirill']
+и есть массив возрастов 
+[23, 30, 50]
+Каждый индекс имени в массиве совпадает с индексом возраста массива возрастов.
+Используя метод map и данные два массива создать новый массив, каждый элемент которого будет объектом:
+[{age: 23, name: 'Andrey'}, {age: 30, name: 'Vasya'}, 
+{age: 50, name: 'Kirill'}]
+ */
+
+let namesUsers = ['Andrey', 'Vasja', 'Kirill'];
+let ages = [23, 30, 50];
+//вариант с обычной функцией
+let namesAges = ages.map(function(elem, index) {
+	return '{' + 'age: ' + elem + ', name: ' + namesUsers[index] + '}';
+});
+console.log(namesAges);
+//вариант со стрелочной функцией
+let namesAges2 = ages.map((elem, index) => ('{age: ' + elem + ', name: ' + namesUsers[index] + '}'));
+console.log(namesAges2);
+
+/* 6. Преобразовать массив объектов 
+[{age: 23}, {age: 30}, {age: 50}] в массив чисел элементами которого будут числа (значения возрастов из объектов)
+Решение:
+let objs = [{age: 23}, {age: 30}, {age: 50}];
+let newArr = [];
+for(let i = 0; i < objs.length; i++) {
+	let age = objs[i].age;
+	newArr.push(age);
+} */
+
+ let objs = [{age: 23}, {age: 30}, {age: 50}];
+ //вариант с обычной функцией
+ let arrayFromObjs = objs.map(function(elem){
+	 return elem.age;
+ })
+ console.log(arrayFromObjs);
+ //вариант со стрелочной функцией
+ let arrayFromObjs2 = objs.map(elem => elem.age);
+ console.log(arrayFromObjs2);
+
+
+/* 7. Имеется массив 
+[23 , 5, null, true, 'Vasja', {}, []]
+Требуется преобразовать данный массив в массив, элементы которого будут: 
+- если элемент число, то новый элемент будет объектом, у которого свойство будет являться элементом массива в виде {age: 23} 
+- если строка, то в новом массиве элемент будет той же строкой в верхнем регистре
+- в остальных случаях элементы преобразуются в строку ‘not a number or a string’ */
+
+ let bigObjs = [23 , 5, null, true, 'Vasja', {}, []];
+//вариант с обычной функцией
+ let newBigObjs = bigObjs.map(function(elem){
+	   if (typeof elem === "number") {
+		 el = {age: elem}
+		} else if (typeof elem === "string") {
+			el = elem.toUpperCase();
+			} else {el = 'not a number or a string';
+		}
+		return el;
+ });
+ console.log(newBigObjs);
+//вариант со стрелочной функцией
+ let newBigObjs2 = bigObjs.map(elem => {if (typeof elem === "number") {
+		 el = {age: elem}
+		} else if (typeof elem === "string") {
+			el = elem.toUpperCase();
+			} else {el = 'not a number or a string';
+		}
+	return el; });
+		console.log(newBigObjs2);
+
+/* 		8. Есть массив [1, 2, 3, 4, 5, 6]. Нужно преобразовать данный массив в новый у которого все элементы будут больше 2*/
+
+let arrNumbers = [1, 2, 3, 4, 5, 6];
+//вариант с обычной функцией
+let arrNumber = arrNumbers.map(function(elem){
+	if (elem > 2) {
+		return elem;
+	} 
+});
+arrNumber = arrNumber.filter(function(x) {
+    return x !== undefined && x !== null; 
+});
+console.log(arrNumber);
+//вариант со стрелочной функцией
+let arrNumber2 = arrNumbers.map(elem => {
+	if (elem > 2) {
+		return elem;
+	}
+});
+arrNumber2 = arrNumber2.filter(x => {
+    return x !== undefined && x !== null; 
+});
+console.log(arrNumber2);
+
+/* 9. Есть массив объектов users [{age: 11, name: Vasja}, {age: 13, name: Ivan}, {age: 18, name: Katya}, {age: 23, name: Andrey}]. Отфильтровать данный массив чтобы в нем находились пользователи которым 18 лет и выше.
+ */
+
+let users = [{age: 11, name: 'Vasja'}, {age: 13, name: 'Ivan'}, {age: 18, name: 'Katya'}, {age: 23, name: 'Andrey'}];
+//вариант с обычной функцией
+let newUsers = users.map(function(elem){
+	if (elem.age >= 18) {
+		return elem;
+	}
+});
+newUsers = newUsers.filter(function(x) {
+    return x !== undefined && x !== null; 
+});
+console.log(newUsers);
+//вариант со стрелочной функцией
+let newUsers2 = users.map(elem => {
+	if (elem.age >= 18) {
+		return elem;
+	}
+});
+newUsers = newUsers.filter(function(x) {
+    return x !== undefined && x !== null; 
+});
+console.log(newUsers2);
+
+/* 10. Есть массив слов [‘машина’, ‘улов’, ‘ёж’, ‘эскалатор’]. Нужно отфильтровать данный массив, чтобы в новом были слова, количество символов у которых больше 4;*/
+
+let arrayRus = ['машина', 'улов', 'ёж', 'эскалатор'];
+//вариант с обычной функцией
+let arrayRusAscending = arrayRus.map(function(elem) {
+	if (elem.length > 4) {
+		return elem;
+	}
+});
+arrayRusAscending = arrayRusAscending.filter(function(x) {
+    return x !== undefined && x !== null; 
+});
+console.log(arrayRusAscending);
+//вариант со стрелочной функцией
+let arrayRusAscending2 = arrayRus.map(elem => {
+	if (elem.length > 4) {
+		return elem;
+	}
+});
+arrayRusAscending2 = arrayRusAscending2.filter(x => {
+    return x !== undefined && x !== null; 
+});
+console.log(arrayRusAscending2);
+
+/* 11. Есть массив [‘машина’, 23, null, ‘улов’, 55 ‘ёж’, ‘эскалатор’, undefined]. Отфильтровать данный массив таким образом чтобы в нем были только строки и числа*/
+
+let arrarr = ['машина', 23, null, 'улов', 55, 'ёж', 'эскалатор', undefined];
+//вариант с обычной функцией
+let arrarr2 = arrarr.map(function(elem){
+	if (typeof elem === "number" || typeof elem === "string") {
+		return elem;
+	}
+});
+arrarr2 = arrarr2.filter(function(x) {
+    return x !== undefined && x !== null; 
+});
+console.log(arrarr2);
+//вариант со стрелочной функцией
+let arrarr3 = arrarr.map(elem => {
+	if (typeof elem === "number" || typeof elem === "string") {
+		return elem;
+	}
+});
+arrarr3 = arrarr3.filter(x => {
+    return x !== undefined && x !== null; 
+});
+console.log(arrarr3);
+
+/* 12. Есть массив [1, 2, 3, 4 , 5, 6, 7]. Отфильтруйте данный массив таким образом чтобы в нем находились только чётные числа*/
+
+let numbers = [1, 2, 3, 4 , 5, 6, 7];
+//вариант с обычной функцией
+let evenNumbers = numbers.map(function(elem){
+	if (elem % 2 === 0){
+     	      return elem; 
+        };
+})
+evenNumbers = evenNumbers.filter(function(x) {
+    return x !== undefined && x !== null; 
+});
+console.log(evenNumbers);
+//вариант со стрелочной функцией
+let evenNumbers2 = numbers.map((elem, index) => {
+	if (elem % 2 === 0){
+     	      return elem; 
+        } else { elem[index];
+
+				};
+});
+evenNumbers2 = evenNumbers2.filter(function(x) {
+    return x !== undefined && x !== null; 
+});
+console.log(evenNumbers2);
+
+</script>
