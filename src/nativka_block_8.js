@@ -197,9 +197,9 @@ function load() {
 // https://habr.com/ru/company/ruvds/blog/414373/
 // es7
 
-document.querySelector('#load').addEventListener('click', load)
+// document.querySelector('#load').addEventListener('click', load)
 
-//рефакторим новым синтаксисом фукнцию load из предыдущего урока
+/*//рефакторим новым синтаксисом фукнцию load из предыдущего урока
 // async перед функцией, говорит нам о том, что функция асинхронная
 async function load() {
     let url = 'https://jsonplaceholder.typicode.com/users'
@@ -209,10 +209,74 @@ async function load() {
         return '<li>' + i.id + ' ' + i.name + ' (' + i.email + ')</li>'
     }).join(' ')
     document.querySelector('#list').insertAdjacentHTML('afterbegin', html)
+}*/
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//   еще про promise   еще про promise     еще про promise     еще про promise     еще про promise     еще про promise     еще про promise
+
+function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(function(){
+            resolve()
+        },ms)
+    })
 }
 
+sleep(1500).then(function() {
+    console.log('1.5')
+})
+sleep(5000).then(function() {
+    console.log('5')
+})
+
+// метод all принимает в себя набор промисов и отрабатывает тогда (попадает в метод .then), когда отработают все промисы которые он принял
+Promise.all([sleep(1500), sleep(5000)]).then(function(){
+    console.log('all')
+})
+
+// метод race принимает в себя набор промисов и отрабатывает тогда (попадает в метод .then), когда отрабатывает первый промис.
+Promise.race([sleep(1500), sleep(5000)]).then(function(){
+    console.log('race')
+})
+
+// более реальный пример
+let p1 = sleep(1500).then(function() {
+    return {
+        name: 'promise 1.5'
+    }
+})
+let p2 = sleep(5000).then(function() {
+    return {
+        name: 'promise 3'
+    }
+})
+
+Promise.all([p1, p2]).then(function(data){
+    console.log('all', data) /*  all (2) [{…}, {…}]
+                                        0: {name: "promise 1.5"}
+                                        1: {name: "promise 3"}
+                                        length: 2
+                                        __proto__: Array(0)
+                                         */
+})
+
+Promise.race([p1, p2]).then(function(data){
+    console.log('race', data) // race {name: "promise 1.5"}
+})
 
 
+async function start() {
+    let dataAll = await Promise.all([p1, p2])
 
+    let dataRace = await Promise.race([p1, p2])
+
+    console.log('dataAll', dataAll)
+    console.log('dataRace', dataRace)
+}
+
+start()
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 
 
