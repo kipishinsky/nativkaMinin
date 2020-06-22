@@ -84,16 +84,17 @@ setTimeout(function() {
 }, 1000)
 */
 
+/*
 console.log('Клиент: хочу получить список пользователей')
 console.log('...')
 
 
-let promise = new Promise(function (resolve, reject) { /*
+let promise = new Promise(function (resolve, reject) { /!*
     new Promise - создаем новый обхект
     в параметры передаем функцию, которая выполняется сразу же, функция принимает 2 параметра
     resolve - вызывается тогда, когда мы закончили какую то операцию успешно (без ошибки)
     reject - вызывается тогда, когда мы закончили какую то операцию с ошибкой
-*/
+*!/
     setTimeout(function(){
         console.log('Сервер: Запрашиваю список пользователей в БД')
         console.log('...')
@@ -153,3 +154,47 @@ promise.then(() => {
     .finally (()=>{
         console.log('finally')
     })
+*/
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Метод .Fetch    Метод .Fetch    Метод .Fetch    Метод .Fetch    Метод .Fetch    Метод .Fetch    Метод .Fetch    Метод .Fetch
+// делает запрос на удаленный сервер и возвращает нам promise(обещание c англ)
+
+// взаимодействие с сервером
+// тесты проводить можно на хэл ресурсе https://jsonplaceholder.typicode.com/
+// асинхронные запросы не приводят к перезагрузке страницы
+
+
+
+// достали кнопку
+document.querySelector('#load').addEventListener('click', load)
+
+//проверка работоспособности связки client => server
+function load() {
+
+    let url = 'https://jsonplaceholder.typicode.com/users'
+
+    fetch(url)
+        .then( function (response) {
+            return response.json()
+            //console.log('response', response) // при нажатии на кнопку получаем - Response {type: "cors", url: "https://jsonplaceholder.typicode.com/users", redirected: false, status: 200, ok: true, …}
+        })
+        .then((data) => {
+            let ul = document.querySelector('#list')
+
+            let html = data.map((i) => {
+                return '<li>' + i.id + ' ' + i.name + ' (' + i.email + ')</li>'
+            })
+            //console.log('data', data) //data (10) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+            //console.log('data', html) // data (10) ["<li>1 Leanne Graham (Sincere@april.biz)</li>", "<li>2 Ervin Howell (Shanna@melissa.tv)</li>", "<li>3 Clementine Bauch (Nathan@yesenia.net)</li>", "<li>4 Patricia Lebsack (Julianne.OConner@kory.org)</li>", "<li>5 Chelsey Dietrich (Lucio_Hettinger@annie.ca)</li>", "<li>6 Mrs. Dennis Schulist (Karley_Dach@jasper.info)</li>", "<li>7 Kurtis Weissnat (Telly.Hoeger@billy.biz)</li>", "<li>8 Nicholas Runolfsdottir V (Sherwood@rosamond.me)</li>", "<li>9 Glenna Reichert (Chaim_McDermott@dana.io)</li>", "<li>10 Clementina DuBuque (Rey.Padberg@karina.biz)</li>"]
+            //console.log('data', html.join(' ')) //data <li>1 Leanne Graham (Sincere@april.biz)</li> <li>2 Ervin Howell (Shanna@melissa.tv)</li> <li>3 Clementine Bauch (Nathan@yesenia.net)</li> <li>4 Patricia Lebsack (Julianne.OConner@kory.org)</li> <li>5 Chelsey Dietrich (Lucio_Hettinger@annie.ca)</li> <li>6 Mrs. Dennis Schulist (Karley_Dach@jasper.info)</li> <li>7 Kurtis Weissnat (Telly.Hoeger@billy.biz)</li> <li>8 Nicholas Runolfsdottir V (Sherwood@rosamond.me)</li> <li>9 Glenna Reichert (Chaim_McDermott@dana.io)</li> <li>10 Clementina DuBuque (Rey.Padberg@karina.biz)</li>
+            ul.insertAdjacentHTML('afterbegin', html.join(' '))
+        })
+}
+
+
+
+
+
+
