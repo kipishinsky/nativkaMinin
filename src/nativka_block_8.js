@@ -166,8 +166,7 @@ promise.then(() => {
 // асинхронные запросы не приводят к перезагрузке страницы
 
 
-
-// достали кнопку
+/*// достали кнопку
 document.querySelector('#load').addEventListener('click', load)
 
 //проверка работоспособности связки client => server
@@ -191,6 +190,25 @@ function load() {
             //console.log('data', html.join(' ')) //data <li>1 Leanne Graham (Sincere@april.biz)</li> <li>2 Ervin Howell (Shanna@melissa.tv)</li> <li>3 Clementine Bauch (Nathan@yesenia.net)</li> <li>4 Patricia Lebsack (Julianne.OConner@kory.org)</li> <li>5 Chelsey Dietrich (Lucio_Hettinger@annie.ca)</li> <li>6 Mrs. Dennis Schulist (Karley_Dach@jasper.info)</li> <li>7 Kurtis Weissnat (Telly.Hoeger@billy.biz)</li> <li>8 Nicholas Runolfsdottir V (Sherwood@rosamond.me)</li> <li>9 Glenna Reichert (Chaim_McDermott@dana.io)</li> <li>10 Clementina DuBuque (Rey.Padberg@karina.biz)</li>
             ul.insertAdjacentHTML('afterbegin', html.join(' '))
         })
+}*/
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//   Операторы: Async Await       Операторы: Async Await       Операторы: Async Await       Операторы: Async Await       Операторы: Async Await
+// https://habr.com/ru/company/ruvds/blog/414373/
+// es7
+
+document.querySelector('#load').addEventListener('click', load)
+
+//рефакторим новым синтаксисом фукнцию load из предыдущего урока
+// async перед функцией, говорит нам о том, что функция асинхронная
+async function load() {
+    let url = 'https://jsonplaceholder.typicode.com/users'
+    let response = await fetch(url)
+    let data = await response.json()
+    let html = data.map( i => {
+        return '<li>' + i.id + ' ' + i.name + ' (' + i.email + ')</li>'
+    }).join(' ')
+    document.querySelector('#list').insertAdjacentHTML('afterbegin', html)
 }
 
 
