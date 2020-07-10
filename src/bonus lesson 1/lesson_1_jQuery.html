@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+</head>
+<body>
+    <!--подключили jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!--  https://api.jquery.com/  - описаны все методы jQuery -->
+
+    <script>
+
+        $('<div />') // создаем блок
+            .css ({ // добавляем свойства див
+                margin: '20px auto', // центруем
+                width: 200, // ширина
+                height: 150, // высота
+                borderRadius: '50%', // border - граница, радиус границы
+                backgroundColor: 'red', // цвет
+                transition: '.3s transform ease-in' // анимация
+            })
+            .hover(function() { // hover - добавляем событие (в параметры принимает либо 1, либо 2 функции колбеки)
+                $(this).css('transform', 'scale(1.1)')
+            }, function () {
+                $(this).css('transform', 'scale(1)')
+            })
+            .click(function () {
+                const $clone = $(this).clone()
+
+                $clone.css ({
+                    position: 'relative',
+                    top: 200,
+                    backgroundColor: 'blue'
+                })
+
+                $clone.click( () => {
+                    $clone.fadeOut() // fadeOut - испарится, испарится при клике
+                })
+
+                $(document.body).append($clone) // клонируем с новыми свойствами элемент на клик
+            })
+            .appendTo($(document.body)) // appendTo - добавить к body
+
+        console.log($(document.body)) // $ === jQuery === {} === variable
+        console.log(document.body)
+    </script>
+
+</body>
+</html>
