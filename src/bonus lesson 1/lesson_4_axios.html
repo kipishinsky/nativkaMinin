@@ -22,6 +22,11 @@
         test: https://jsonplaceholder.typicode.com/
 
 
+        статус коды
+        // начинается на 4 - 404 ошибка|ошибки страниц
+        // начинается на 5 - ошибки с сервера
+        // начинается на 3 - redirect
+        // начинается на 2 - например 200, положительный запрос
 
         -->
 
@@ -35,6 +40,7 @@
                 })*/
                 .then (response => response.data)
                 .then (data => console.log(data)) // {userId: 1, id: 1, title: "delectus aut autem", completed: false}
+
 
         </script>
 
