@@ -16,7 +16,17 @@ npm run - выполни команду
 npm i ejs // формат файлов, который позволяет шаблонизировать html файлы
 npm install body-parser // позволяет распарсивать данные в body
 
+
+
 https://openweathermap.org/  - сервис определения погоды по локации
+
+
+
+https://www.npmjs.com/package/request-promise
+npm install request request-promise -S // request через пробел идет второй запрос request-promise
+
+
+
 
 
 window // и все что через точку -  не работает в ноде

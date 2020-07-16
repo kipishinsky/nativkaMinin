@@ -4,7 +4,9 @@
 // потом
 const express = require('express')
 const app = express()
+// получаем апи ключ на сайте погоды
 const bodeParser = require('bode-parser')
+const weatherRequest = require('./requests/weather_request.js')
 
 app.set('view engine', 'ejs') // default files ejs
 app.use(express.static('public')) /*
@@ -20,7 +22,7 @@ app.get('/', (req, res) => { // методом get
 app.post('/', (req, res) => { /*  req - то с чем обращаемся в данный запрос, res - то как мы отвечаем на данный запрос */
     /* console.log(req.params) - отвечает за квери запрос после ? в адресной строке */
     const {city} = req.body
-    console.log(city) // Санкт Петербург
+    weatherRequest(city) // city: Санкт Петербург
     res.render('index')
 })
 
